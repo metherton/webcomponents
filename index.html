@@ -4,40 +4,45 @@
     <meta charset="UTF-8">
     <title>A practival guide to web components</title>
     <script>
-        class MyCustomElement extends HTMLElement {
-            constructor() {
-                super();
-                console.log('my custom element constructed');
+        class DivisionElement extends HTMLElement {
+//            constructor() {
+//                super();
+//                console.log('my custom element constructed');
+//            }
+
+            divideByTen(value) {
+                console.log(parseInt(value) / 10);
             }
 
-            connectedCallback() {
-                console.log('my custom element added to the DOM');
-            }
-
-            static get observedAttributes() {
-                return ['demo'];
-            }
-
-            attributeChangedCallback(name, oldValue, newValue) {
-                console.log('attribute changed', name, oldValue, newValue);
-            }
-
-            disconnectedCallback() {
-                console.log('my custom element removed  from the DOM');
-            }
+//            connectedCallback() {
+//                console.log('my custom element added to the DOM');
+//            }
+//
+//            static get observedAttributes() {
+//                return ['demo'];
+//            }
+//
+//            attributeChangedCallback(name, oldValue, newValue) {
+//                console.log('attribute changed', name, oldValue, newValue);
+//            }
+//
+//            disconnectedCallback() {
+//                console.log('my custom element removed  from the DOM');
+//            }
         }
-        window.customElements.define('my-custom-element', MyCustomElement);
+
+        class MultiplyElement extends DivisionElement {
+
+            multiplyByTen(value) {
+                console.log(parseInt(value) * 10);
+            }
+
+        }
+
+        window.customElements.define('do-division', DivisionElement);
     </script>
 </head>
 <body>
-
-    <script>
-        let $ce = document.createElement('my-custom-element');
-        setTimeout(() => {
-           document.body.appendChild($ce);
-        }, 3000);
-    </script>
-
-    <!--<my-custom-element></my-custom-element>-->
+    <do-division></do-division>
 </body>
 </html>
