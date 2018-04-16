@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML template</title>
+</head>
+<body>
+    <template id="list-item">
+        <li>
+            <h1>A movie title</h1>
+            <p>a movie plot</p>
+        </li>
+    </template>
+    <ul id="movie-list"></ul>
+    <script>
+        const items = [{'title': 'The lord of the rings', 'plot': 'a meek hobbit from the shire'},
+            {'title': 'The lord of the rings - II', 'plot': 'Frodo and sam'},
+            {'title': 'The lord of the rings - III', 'plot': 'Gandalf and arogorn'}];
+        const $template = document.getElementById('list-item');
+        const $list = document.getElementById('movie-list');
+        items.forEach((movie) => {
+            const $clone = document.importNode($template.content, true);
+            $clone.querySelector('h1').innerText = movie.title;
+            $clone.querySelector('p').innerText = movie.plot;
+            $list.appendChild($clone);
+        });
+    </script>
+</body>
+</html>
