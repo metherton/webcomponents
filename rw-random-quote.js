@@ -25,7 +25,7 @@ class RwRandomQuote extends HTMLElement {
                             </div>
                             `;
         this._$quote = this.querySelector('#quote');
-        this._interval = setInterval(() => this._render(), 10000);
+        this._setInterval(this.getAttribute('interval'))
         this._render();
     }
 
@@ -37,6 +37,15 @@ class RwRandomQuote extends HTMLElement {
 
     disconnectedCallback() {
         clearInterval(this._interval);
+    }
+
+    _setInterval(value) {
+        if (this._interval !== null) {
+            clearInterval(this._interval);
+        }
+        if (value > 0) {
+            this._interval = setInterval(() => this._render(), value);
+        }
     }
 }
 
