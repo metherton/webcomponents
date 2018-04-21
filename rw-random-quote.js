@@ -31,7 +31,9 @@ class RwRandomQuote extends HTMLElement {
 
     _render() {
         if (this._$quote !== null) {
-            this._$quote.innerHTML = this._quotes[Math.floor(Math.random() * this._quotes.length)];
+            const index = Math.floor(Math.random() * this._quotes.length);
+            this.setAttribute('current-index', index);
+            this._$quote.innerHTML = this._quotes[index];
         }
     }
 
@@ -46,6 +48,14 @@ class RwRandomQuote extends HTMLElement {
         if (value > 0) {
             this._interval = setInterval(() => this._render(), value);
         }
+    }
+
+    static getObservedAttributes() {
+        return ['interval'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this._setInterval(newValue);
     }
 }
 
