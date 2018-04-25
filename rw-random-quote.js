@@ -50,10 +50,12 @@ class RwRandomQuote extends HTMLElement {
         }
     }
 
+    // observe attribute changes
     static getObservedAttributes() {
         return ['interval'];
     }
 
+    // react to attribute changes
     attributeChangedCallback(name, oldValue, newValue) {
         this._setInterval(newValue);
     }

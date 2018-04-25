@@ -6,6 +6,7 @@ class RwPoll extends HTMLElement {
 
     constructor() {
         super();
+        // private variables
         this._attached = false;
         this._data = null;
         this._selected = null;
@@ -13,25 +14,42 @@ class RwPoll extends HTMLElement {
         //elements
         this._$question = null;
         this._$answers = null;
+
+        // create a shadow root
+        this._root = this.attachShadow({"mode": "open"});
+
     }
 
     connectedCallback() {
         this._attached = true;
-        this.innerHTML = `
-            <style> #question {
+
+        // add an initial template
+        this._root.innerHTML = `
+            <style>
+             ul {
+             list-style-type: none;
+             margin: 0;
+             padding: 0;
+             }
+             
+             #question {
                background-color: black;
                color: white;
-            },
-             li {
+            }
+            
+             #answers {
                 background-color: lightgray;
+                
             }</style>
             <div class="rw-poll-container">
               <h3 id="question"></h3>
               <ul id="answers"></ul>
             </div>
         `;
-        this._$question = this.querySelector('#question');
-        this._$answers = this.querySelector('#answers');
+
+        // store important elements for later use
+        this._$question = this._root.querySelector('#question');
+        this._$answers = this._root.querySelector('#answers');
         this._$answers.addEventListener('click', (event) => {
             this._$answers.querySelectorAll('li').forEach(($li, index) => {
 
@@ -43,6 +61,7 @@ class RwPoll extends HTMLElement {
         this._render();
     }
 
+    // private methods
     _render() {
         if (this._attached && this._data !== null) {
             this._$answers.innerHTML = '';
@@ -55,6 +74,7 @@ class RwPoll extends HTMLElement {
         }
     }
 
+    // use getters and setters to create an api for your component
     set data(data) {
         if (this._data === data) return;
         this._data = data;
@@ -81,4 +101,5 @@ class RwPoll extends HTMLElement {
     }
 }
 
+// best practices for element and component naming
 window.customElements.define('rw-poll', RwPoll);
