@@ -13,11 +13,13 @@ class RwStarRating extends HTMLElement {
         // Data
         this._disabled = false;
         this._value = 0;
+        this._touched = false;
 
     }
 
     set value(value) {
         if (this._value === value) return;
+        this._touched = true;
         this._value = value;
         this._render();
     }
@@ -104,7 +106,12 @@ class RwStarRating extends HTMLElement {
                     this.value = event.target.dataset.value;
                 }
             }
-        })
+        });
+        const initialValue = this.getAttribute('value');
+        if (initialValue !== null) {
+            this._value = initialValue;
+            this._render();
+        }
     }
 
     _render() {
@@ -114,7 +121,7 @@ class RwStarRating extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["disabled"];
+        return ["disabled", "value"];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -122,6 +129,12 @@ class RwStarRating extends HTMLElement {
             switch(name) {
                 case "disabled":
                     this._disabled = (newValue !== null);
+                    break;
+                case "value":
+                    if (this._touched === false) {
+                        this._value = newValue;
+                        this._render();
+                    }
                     break;
             }
         }
