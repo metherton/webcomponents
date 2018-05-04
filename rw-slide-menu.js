@@ -64,10 +64,30 @@ class RwSlideMenu extends HTMLElement {
                 .frame.open .container {
                     transform: none;
                 }
+                .content-slot::slotted(a) {
+                    display: block;
+                    font-size: 1.2em;
+                    text-decoration: none;
+                    line-height: 2.5em;
+                    padding: 0.5em;
+                    border-bottom: solid 1px #F1F1F1;
+                    color: #666;
+                }
+                 .content-slot::slotted(a:hover) {
+                    color: #000;
+                }               
+
                 :host([theme="red"]) .title {
                     background-color: #E23F24;
                     color: white;
                 }
+                :host([theme="red"]) .content-slot::slotted(a:hover) {
+                    color: #E23F24;
+                }
+                :host([theme="blue"]) .content-slot::slotted(a:hover) {
+                    color: #0D152D;
+                } 
+ 
                 :host([theme="blue"]) .title {
                     background-color: #0D152D;
                     color: white;
@@ -91,7 +111,7 @@ class RwSlideMenu extends HTMLElement {
                         <a class="close" data-close="true">&#10006;</a>
                     </div>
                     <div class="content">
-                        <a href="#">Menu Item one</a>
+                        <slot class="content-slot"></slot>
                     </div>
                 </nav>
             </div>
