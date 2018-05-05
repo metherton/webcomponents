@@ -25,7 +25,7 @@ class RwSlideMenu extends HTMLElement {
                 }
                 .container {
                     width: var(--menu-width, 80%);
-                    background: #FFF;
+                    background: var(--menu-bg-color, #FFF);
                     height: 100%;
                     transform: translateX(-100%);
                     will-change: transform;
@@ -37,8 +37,8 @@ class RwSlideMenu extends HTMLElement {
                     flex-direction: row;
                     min-height: 3.2em;
                     font-size: var(--title-size, 1.5em);
-                    background-color: #F1F1F1;
-                    color: #666;
+                    background-color: var(--title-bg-color,#F1F1F1);
+                    color: var(--title-color, #666);
                 }
                 .title .title-content {
                     flex-grow: 1;
